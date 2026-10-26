@@ -57,10 +57,12 @@ export function Login(){
     function onSubmit(event: React.SubmitEvent<HTMLFormElement>) {
         event.preventDefault()
         const formData = new FormData(event.target)
+        const email = formData.get('email') as string
         const payload = {
-            email: formData.get('email') as string,
+            email: email,
             password: formData.get('password') as string,
         }
+        localStorage.setItem('email',email)
         mutate(payload)
     }
 
