@@ -1,0 +1,94 @@
+.Outer {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--black-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.UserCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 320px;
+    padding: 32px 28px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.Avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--red-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.Username {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 0 0 4px 0;
+}
+
+.Email {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 20px 0;
+}
+
+.InfoRow {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 0;
+    border-top: 1px solid #f0f0f2;
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.InfoRow span:last-child {
+    color: #1f2937;
+    font-weight: 500;
+}
+
+.StatsRow {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.StatBadge {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 8px;
+    border-radius: 10px;
+    font-size: 13px;
+}
+
+.Plus {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.Minus {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.StatValue {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}

@@ -1,0 +1,68 @@
+.Outer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.Form {
+    border: 5px solid black;
+    border-radius: 20px;
+    height: 450px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap:18px
+}
+
+.Form h1 {
+    font-size: 32px;
+    margin: 0px;
+}
+
+.Element {
+    margin-top: 5px;
+    width: 90%;
+}
+
+.Element label {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.Element input {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    height: 34px;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: black;
+}
+
+.Form button {
+    margin-top: 10px;
+    width: 90%;
+    background-color: var(--red-color);
+    color: white;
+    border: none;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+
+.Form button:hover {
+    background-color: rgb(80,0,0);
+}
+
+.Form button:active {
+    transform: scale(0.95);
+}
+
+.Error {
+    color: rgb(180,0,0);
+    position: absolute;
+}
