@@ -23,11 +23,10 @@ interface LoginResponse {
 }
 
 
-const STORAGE_KEY = 'tap-cooldown-ends-at'
+const STORAGE_KEY = 'cooldown-ends-at'
 
 
 
-// Сколько секунд осталось до конца кулдауна (0, если кулдауна нет)
 function getSecondsLeft(): number {
     const raw = localStorage.getItem(STORAGE_KEY)
     if (!raw) {
@@ -42,7 +41,6 @@ export function LoginConfirm(){
 
     const [err,serErr] = useState('')
     const [timeLeft, setTimeLeft] = useState(getSecondsLeft)
-    const [isFirstSubmit,setisFirstSubmit] = useState(false)
     const isClicked = timeLeft > 0
     const authEntities = useContext(authContext)
     const navigate = useNavigate()
@@ -62,21 +60,24 @@ export function LoginConfirm(){
             const result = await api.post('/user/login-confirm',data)
             return result.data
         },
-        onSuccess:(response: LoginResponse) => {
-            if(isClicked) {
-                return
-            }
-            localStorage.setItem(STORAGE_KEY, String(Date.now() + 60 * 1000))    
-            setTimeLeft(60)    
-            setisFirstSubmit(true)
-            localStorage.setItemo('access_token',response.access_token)
+        onSuccess:(response: LoginResponse) => {   
+            //setisFirstSubmit(true)
+            localStorage.setItem('access_token',response.access_token)
+            localStorage.removeItem('email')
             authEntities?.setIsAuth(true)
             authEntities?.setUserId(response.user_id)
             navigate('/')
         },
         onError:(error: AxiosError<ErrorResponse>) => {
             serErr(error.message)
-        }
+        },
+        // onSettled:() => {
+        //     if(isClicked) {
+        //         return
+        //     }
+        //     localStorage.setItem(STORAGE_KEY, String(Date.now() + 60 * 1000))    
+        //     setTimeLeft(60) 
+        // }
     })
 
     function handleSubmit(event: React.SubmitEvent<HTMLFormElement>) {
@@ -86,11 +87,6 @@ export function LoginConfirm(){
         const email = localStorage.getItem('email') as string
         mutate({code:code,email:email})
     }
-    const content = 
-        isClicked && isFirstSubmit 
-            ? <label className={styles.Timer}>{timeLeft}</label> :isFirstSubmit 
-            ? 'Отправить повторно' 
-            : 'Подтвердить'
 
     return (
         <>
@@ -102,7 +98,7 @@ export function LoginConfirm(){
                         <input type='text' name='code'/>
                     </div>
                     <span className={styles.Error}>{ err }</span>
-                    <button type='submit'>{content}</button>
+                    <button type='submit'>Подтвердить</button>
                 </form>
             </div>
         </>

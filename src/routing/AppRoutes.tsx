@@ -7,6 +7,7 @@ import { Profile } from "../auth/auth_pages/Profile/Profile.tsx";
 import { Logout } from "../auth/auth_pages/Logout.tsx";
 import { ProtectedRoute } from "../auth/auth_pages/ProtectedRoute.tsx";
 import { LoginConfirm } from "../auth/auth_pages/LoginConfirm/LoginConfirm.tsx"
+import { RegisterConfirm } from "../auth/auth_pages/RegisterConfirm/RegisterConfirm.tsx";
 
 
 
@@ -21,6 +22,7 @@ export function AppRoutes(){
                     <Route path="/user/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>} />
                     <Route path="/user/logout" element={<ProtectedRoute><Logout/></ProtectedRoute>} />
                     <Route path="/user/login-confirm" element={<LoginConfirm />} />
+                    <Route path="/user/register-confirm" element={<RegisterConfirm />} />
                 </Route>
             </Routes>
         </>

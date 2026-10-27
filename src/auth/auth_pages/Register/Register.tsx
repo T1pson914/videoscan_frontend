@@ -14,8 +14,8 @@ interface RegisterRequest {
 }
 
 interface ErrorMessages {
-    email: string,
-    username: string
+    email?: string,
+    username?: string
 }
 
 interface ErrorResponse {
@@ -35,13 +35,12 @@ export function Register(){
     const [touched,setTouched] = useState({username:false,email:false,password:false,password2:false})
     const [confirm, setConfirm] = useState(false)
 
-
     function validate(newValues = values){
 
         const {username,email,password,password2} = newValues
         const newErrors = { ...errors }
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-        
+
         newErrors.username = !username ? '' : username[0] in ['0','1','2','3','4','5','6','7','8','9']
         ? 'Имя не должно начинаться с цифры.'  
         : username.trim().length < 2 
@@ -86,12 +85,10 @@ export function Register(){
             const response = await api.post('/user/register',payload)
             return response.data
         },
-        onSuccess: (response: RegisterResponse)=>{
-            console.log(response.message)
+        onSuccess: ()=>{
             setConfirm(true)
         },
         onError: (error: AxiosError<ErrorResponse>)=>{
-            console.log(error.message)
             const result = error.response?.data.detail
             const username = result?.username ?? '' 
             const email = result?.username ?? ''
@@ -104,19 +101,19 @@ export function Register(){
         setTouched({username:true,email:true,password:true,password2:true});
         const condition = Object.values(values).every((elem)=>elem==='')
         if(validate( values ) && !condition){
-            console.log('Все готово')
             const formData = new FormData(event.target)
             const payload = {
                 email: formData.get('email') as string,
                 username: formData.get('username') as string,
                 password: formData.get('password') as string,
             }
+            localStorage.setItem('email',payload.email)
             mutate(payload)
         }
     }
-    const successMessage = 'Регистрация прошла успешно.'
+    
     if (confirm) {
-        return <Navigate to={'/user/login'} state={successMessage} />
+        return <Navigate to={'/user/register-confirm'} />
     }
 
     return (
