@@ -1,9 +1,10 @@
-import styles from './LoginConfirm.module.css'
+import styles from './RegisterConfirm.module.css'
 import { useMutation } from '@tanstack/react-query'
 import { api } from '../../../api'
 import type { AxiosError } from 'axios'
 import { useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useTitle } from '../../../hooks'
 
 
 
@@ -21,36 +22,13 @@ interface RegisterResponse {
 }
 
 
-const STORAGE_KEY = 'cooldown-ends-at'
-
-
-
-function getSecondsLeft(): number {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) {
-        return 0
-    }
-    const endsAt = Number(raw)
-    return Math.max(0, Math.ceil((endsAt - Date.now()) / 1000))
-}
-
 
 export function RegisterConfirm(){
 
-    const [err,serErr] = useState('')
-    const [timeLeft, setTimeLeft] = useState(getSecondsLeft)
-    const isClicked = timeLeft > 0
-    const navigate = useNavigate()
+    useTitle('Регистрация')
 
-    useEffect(() => {
-        if (!isClicked) {
-            return
-        }
-        const intervalId = setInterval(() => {
-            setTimeLeft(getSecondsLeft())
-        }, 1000)
-        return () => clearInterval(intervalId)
-    }, [isClicked])
+    const [err,serErr] = useState('')
+    const navigate = useNavigate()
 
     const {mutate} = useMutation<RegisterResponse,AxiosError<ErrorResponse>,RegisterRequest>({
         mutationFn:async function(data: RegisterRequest) {
