@@ -13,7 +13,7 @@
 .Form {
     border: 5px solid black;
     border-radius: 15px;
-    height: 200px;
+    min-height: 260px;
     width: 400px;
     display: flex;
     flex-direction: column;
@@ -62,10 +62,29 @@
 }
 
 .Error {
-    position: absolute;
+    display: block;
     color: rgb(180,0,0);
+
 }
 
 .Again {
     position: absolute;
+}
+
+.Form .Resend {
+    background-color: transparent;
+    border: 1px solid var(--red-color);
+}
+
+.Form .Resend:hover:not(:disabled) {
+    background-color: rgb(80,0,0);
+}
+
+.Form .Resend:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.Form .Resend:disabled:active {
+    transform: none;
 }
